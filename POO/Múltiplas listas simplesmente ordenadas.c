@@ -23,11 +23,13 @@ int obter(struct sNODE *node);
 int tamanho(LISTA *lst);
 void imprimir(LISTA *lst);
 void apagar(LISTA *lst);
+LISTA juntar_ord(LISTA * lst1, LISTA * lst2);
 
 int main(void) 
 {
   node temp;
-  LISTA lst1, lst2;
+  LISTA lst1, lst2, nova_lst;
+ 
   while(1)
   {
     int dado, indice = 0, menu = 0;
@@ -42,7 +44,8 @@ int main(void)
     printf("6. Tamanho da lista;\n");
     printf("7. Exibir lista;\n");
     printf("8. Apagar lista;\n");
-    printf("9. Sair\n");
+    printf("9. Juntar listas;\n");
+    printf("10. Sair\n");
     printf("-------------------------------\n");
     int lista;
     printf("Escolha a lista: 1 / 2\n\n");
@@ -113,7 +116,13 @@ int main(void)
             break;
           
           case 9:
-            printf("\n9) Até a próxima!\n\n");
+            nova_lst = juntar_ord(&lst1, &lst2);
+            imprimir(&nova_lst);
+            apagar(&nova_lst);
+            break;
+          
+          case 10:
+            printf("\n10) Até a próxima!\n\n");
             return 0;
 
           default:
@@ -182,7 +191,14 @@ int main(void)
             break;
           
           case 9:
-            printf("\n9) Até a próxima!\n\n");
+            nova_lst = juntar_ord(&lst1, &lst2);
+            imprimir(&nova_lst);
+
+            apagar(&nova_lst);
+            break;
+          
+          case 10:
+            printf("\n10) Até a próxima!\n\n");
             return 0;
 
           default:
@@ -323,4 +339,25 @@ void apagar(LISTA *lst)
     free(ant);
   }
   lst->ini = lst->fim = NULL;
+}
+
+LISTA juntar_ord(LISTA * lst1, LISTA * lst2)
+{
+  LISTA lst3;
+  inicializar(&lst3);
+  struct sNODE *aux = lst1->ini;
+  struct sNODE *aux2 = lst2->ini;
+  while(aux)
+  {
+    inserir_ord(&lst3, aux->dado);
+    aux = aux->prox;
+  }
+
+  while(aux2)
+  {
+    inserir_ord(&lst3, aux2->dado);
+    aux2 = aux2->prox;
+  }
+
+  return lst3;
 }
