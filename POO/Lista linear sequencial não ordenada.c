@@ -100,14 +100,24 @@ int main(void) {
   }
   return 0;
 }
-
+void inserir_ini(int dado) {
+	if (pos < MAX) {
+	  for (int i = pos ; i > 0 ; i--){
+			l[i] = l[i-1];
+	  }	
+	  l[0] = dado;
+	  pos++;
+	}else {
+		printf("Lista cheia!\n");
+	}
+}
 void inserir_ini(int elemento)
 { 
   int x = 0;
   if (pos < MAX)
     x = l[pos];
 	  l[pos++] = x;
-  for (int i = pos-1; i >= 0; i--)
+  for (int i = pos; i > 0; i--)
     l[i] = l[i-1];
   l[0] = elemento;
 }
